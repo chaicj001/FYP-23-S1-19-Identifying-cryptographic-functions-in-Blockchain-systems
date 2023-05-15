@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Output 1</title>
+	<style>
+		body {
+			background-color: blue;
+			font-family: Arial, sans-serif;
+		}
+		header {
+			background-color: #4CAF50;
+			color: white;
+			padding: 20px;
+			text-align: center;
+		}
+		h1 {
+			margin: 0;
+		}
+		main {
+			margin: 20px;
+		}
+		.output {
+			background-color: white;
+			border: 1px solid #ddd;
+			border-radius: 4px;
+			box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+			padding: 20px;
+			margin-bottom: 20px;
+		}
+	</style>
+</head>
+<body>
+	<header>
+		<h1>Output 1</h1>
+	</header>
+	<main>
+		<div class="output">
+            {% if output is defined %}
+                {% if "MD5" in output %}
+                    <p>MD5 hash function identified.</p>
+                {% elif "SHA-256" in output %}
+                    <p>SHA-256 hash function identified.</p>
+                {% elif "SHA-384" in output %}
+                    <p>SHA-384 hash function identified.</p>
+                {% elif "SHA-512" in output %}
+                    <p>SHA-512 hash function identified.</p>
+                {% elif "Blowfish" in output %}
+                    <p>Blowfish hash function identified.</p>
+                {% elif "Whirlpool" in output %}
+                    <p>Whirlpool hash function identified.</p>
+                {% elif "Snefru" in output %}
+                    <p>Snefru hash function identified.</p>
+                {% else %}
+                    <p>Hash function not identified. Please try again with a valid hash.</p>
+                {% endif %}
+            {% endif %}
+            {{ output.split('\n')[1]|safe }}
+        </div>
+	</main>
+</body>
+</html>

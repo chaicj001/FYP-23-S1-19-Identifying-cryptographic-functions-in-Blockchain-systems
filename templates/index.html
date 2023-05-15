@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Identify BlockChain</title>
+	<link rel="icon" type="images/x-icon" href="../static/logo/fyp logo trans2.png" />
+	<link rel="stylesheet" type="text/css" href="../static/check.css">
+</head>
+<body>
+	<header>
+		<a href="home.html">
+			<img src="../static/logo/fyp logo trans.png" alt="Logo">
+		</a>
+		<span class="header-text" >Identify BlockChain</span>
+		<a href="about.html" class="header-about">
+		    About us
+  		</a>
+	</header>
+	<main>
+		<div class="checktext">
+			Insert Your BlockChain Function
+		</div>
+		<form class="checkform" method="POST" action="{{ url_for('hash_text') }}">
+			<label class="checkformtext" for="hash-input">Enter a hash:</label>
+			<input type="text" id="hash-input" name="text" placeholder="BitCoin Block Number">			
+			<input type="submit" value="Submit">
+		</form>
+	</main>
+</body>
+</html>
