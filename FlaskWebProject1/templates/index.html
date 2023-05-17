@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Blockfinder v1.0</title>
+  <link rel="icon" type="image/x-icon" href="../static/logo/fyp logo trans2.png" />
+  <link rel="stylesheet" type="text/css" href="../static/check.css">
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      display: none;
+    }
+
+    main {
+      text-align: center;
+    }
+
+    .checktext {
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+  </header>
+  <main>
+    <div class="checktext">
+      Welcome to Blockfinder v1.0
+    </div>
+    <form class="checkform" method="POST" action="{{ url_for('hash_text') }}">
+      <label class="checkformtext" for="hash-input">Please enter a hash:</label>
+      <input type="text" id="hash-input" name="text" placeholder="Paste hash here">
+      <input type="submit" value="Submit">
+    </form>
+  </main>
+</body>
+</html>

@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Output 1</title>
+	<style>
+		body {
+			background-image: url('/static/background.jpg');
+			background-size: cover;
+			font-family: Helvetica, sans-serif;
+			color: #000;
+		}
+
+		h1 {
+			margin: 0;
+			padding: 20px;
+			text-align: center;
+		}
+
+		main {
+			margin: 20px;
+		}
+
+		.output {
+			background-color: rgba(255, 255, 255, 0.5);
+			border: 1px solid #ddd;
+			border-radius: 4px;
+			box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+			padding: 20px;
+			margin-bottom: 20px;
+		}
+	</style>
+</head>
+<body>
+	<header>
+	</header>
+	<main>
+		<div class="output">
+			{% if output is defined %}
+			{% if "MD5" in output %}
+			<p><span style='font-size: 20px; font-family: "Lucida Console", Monaco, monospace;'>MD5 hash function identified</span></p>
+			<p><br><strong><u>About MD5:</u></strong></p>
+			<ul>
+				<li>Cryptographic hash function developed by Ron Rivest in 1991<br></li>
+				<li>Produces a 128-bit output, usually represented as a 32-character hexadecimal number<br></li>
+				<li>A one-way function, computationally infeasible to reverse and obtain the plaintext from the ciphertext<br></li>
+				<li>However, it is no longer considered secure due to various vulnerabilities that have been discovered</li>
+			</ul>
+			<p><strong><span style="color: red; font-size: 16px;">Vulnerabilities:</span></strong></p>
+			<ul>
+				<li>Collision attacks: 2 different inputs can producing the same output. A malicious input with identical hash can be created and passed on as a legitimate input<br></li>
+				<li>Length extension attacks: A valid hash can be extended to include additional data without knowing the original input. This can be used to create malicious inputs that have the same hash as legitimate inputs<br></li>
+				<li>Birthday paradox: Likelihood of a collision attack increases significantly as the number of inputs being hashed increases</li>
+			</ul>
+			<p><br></p>
+			<p><strong><span style="color: blue;">Best practices:</span></strong></p>
+			<ul>
+				<li>MD5 can be used in conjunction with a cryptographic nonce to enhance its security. A nonce is a random number that is added to the input data before it is hashed, making it much more difficult for an attacker to replicate the same hash<br></li>
+				<li>Modern cryptographic applications utilize more secure hash functions like SHA-2/SHA-3. It is recommended you only use this for educational/research purposes</li>
+			</ul>
+			<p><br></p>
+			<p><strong><u>How our algorithm identifies this hash:</u></strong></p>
+			<ul>
+				<li>Operation: The block is divided into 16 different 32-bit length and a series of operations to produce the final output</li>
+				<li>Message padding: Message is initially padded to a length that is a multiple of 512 before hashing. Padding also ensures that the result is at least 64 shorter than a multiple of 512. It adds a single &quot;1&quot; bit followed by a series of &quot;0&quot; bits, and then appending a 64-bit representation of the original message<br></li>
+				<li>Message expansion: After the message has been padded, it is broken up into 512-bit blocks, each block going through a series of operations that expands to 2048 bits. Each 32-bit word of the expanded block depends on other words in the adjacent block<br></li>
+				<li>Round function: Each expanded block goes through a series of 64 rounds, each round using a different function that operates on the 16 32-bit words of the block Finalization: After the 64 rounds have been completed, the 128-bit hash output is produced by concatenating the values of the four 32-bit words to produce the output</li>
+			</ul>
+			<p><br></p>
+			<p><br></p>
+
+			{% elif "SHA-256" in output %}
+			<p>
+			<p><span style='font-size: 20px; font-family: "Lucida Console", Monaco, monospace;'>SHA-256 hash function identified</span></p>
+			<p><br><strong><u>About SHA-256:</u></strong></p>
+			<ul>
+				<li>Family of cryptographic hash functions that includes SHA-224, SHA-256, SHA-384, and SHA-512</li>
+
+				<li>
+					Developed by the National Security Agency (NSA) in the US and widely used for digital signature schemes,
+					password storage, and other applications that require secure hashing<br><br>
+				</li>
+			</ul>
+			<u><b>Technical details</b></u>	<br>
+			<ul>
+				<li>
+					Similar structure to SHA-1, which includes message padding, message schedule calculation
+					and a more complex compression function evaluation requiring more rounds of operation
+				</li>
+				<li>Fixed-size output of 224/256/384/512 bits</li>
+				<li>Sustained years of cryptanalysis and attempted attacks, proving its superior security capabilities</li>
+				<li>
+					However, some weaknesses have been identified in the smaller versions of SHA-2, such as SHA-224 and
+					SHA-256, which have been partially addressed by the introduction of SHA-3
+				</li>
+			</ul>
+			<br>
+
+			<u><b>Real-world applications</b></u>	<br>
+			<ul>
+				<li>Widely used in blockchain technology, where it is used to hash the contents of each block to ensure data integrity and security</li>
+				<li>Popular choice for secure password storage, where the hash value is stored instead of the plaintext password</li>
+				<li>Also used in digital signature schemes, where it is used to create a unique hash value of a message to be signed</li>
+			</ul>
+			<br>
+
+			<u><b>Recent developments</b></u>	<br>
+			<ul>
+				<li>Some researchers have proposed modifications to the SHA-2 compression function, such as the Miyaguchi-Preneel (MP) construction</li>
+				<li>
+					It increases resistance to rotational cryptanalysis attacks, however, does not improve the overall security of SHA-2
+					nor does it provide any additional resistance against attacks based on the rebound attack or the boomerang attack
+				</li>
+			</ul>
+			<br>
+
+			<p><strong><span style="color: blue;">Best practices:</span></strong></p>
+			<ul>
+				<li>Combine SHA-2 with other security measures to ensure robust security</li>
+				<li>Implement SHA-2 in a secure and validated manner to avoid vulnerabilities and attacks</li>
+				<li>Use a unique and random salt when hashing passwords to prevent pre-computed hash table attacks</li>
+				<li>Keep up-to-date with new attacks and vulnerabilities related to SHA-2 and take appropriate measures to mitigate risks</li>
+				<li>
+					Compared to other modern hash functions, such as BLAKE2 and SHA-3, SHA-2 is still widely used and considered to be a
+					strong choice for many applications
+				</li>
+			</ul>
+			<br>
+
+			<u><b>How our algorithm identifies this hash</b></u>	<br>
+			<ul>
+				<li>If the program uses hashlib, sha256() identifies its usage</li>
+				<li>Output length of 256 bits</li>
+				<li>
+					Adding a bit sequence to the input data that includes a 1-bit followed by a series of 0-bits,
+					followed by a 64-bit representation of the original length
+					of the input data. This operation is unique to SHA-256<br><br>
+
+					{% elif "SHA-384" in output %}
+					<p>
+					<p><span style='font-size: 20px; font-family: "Lucida Console", Monaco, monospace;'>SHA-384 hash function identified</span>
+
+					<p><br><strong><u>About SHA-384:</u></strong></p>
+					<ul>
+						<li>Family of cryptographic hash functions that includes SHA-224, SHA-256, SHA-384, and SHA-512</li>
+						<li>
+							Developed by the National Security Agency (NSA) in the US and widely used for digital signature schemes,
+							password storage, and other applications that require secure hashing<br><br>
+						</li>
+					</ul>
+
+					<u><b>Technical details</b></u>	<br>
+					<ul>
+						<li>
+							Similar structure to SHA-1, which includes message padding, message schedule calculation
+							and a more complex compression function evaluation requiring more rounds of operation
+						</li>
+						<li>Fixed-size output of 224/256/384/512 bits</li>
+						<li>Sustained years of cryptanalysis and attempted attacks, proving its superior security capabilities</li>
+						<li>
+							However, some weaknesses have been identified in the smaller versions of SHA-2, such as SHA-224 and
+							SHA-256, which have been partially addressed by the introduction of SHA-3
+						</li>
+					</ul>
+					<br>
+			</ul>
+			<u><b>Real-world applications</b></u>	<br>
+			<ul>
+				<li>Widely used in blockchain technology, where it is used to hash the contents of each block to ensure data integrity and security</li>
+				<li>Popular choice for secure password storage, where the hash value is stored instead of the plaintext password</li>
+				<li>Also used in digital signature schemes, where it is used to create a unique hash value of a message to be signed</li>
+			</ul>
+			<br>
+
+			<u><b>Recent developments</b></u>	<br>
+			<ul>
+				<li>Some researchers have proposed modifications to the SHA-2 compression function, such as the Miyaguchi-Preneel (MP) construction</li>
+				<li>
+					It increases resistance to rotational cryptanalysis attacks, however, does not improve the overall security of SHA-2
+					nor does it provide any additional resistance against attacks based on the rebound attack or the boomerang attack
+				</li>
+			</ul>
+			<br>
+
+			<p><strong><span style="color: blue;">Best practices:</span></strong></p>
+			<ul>
+				<li>Combine SHA-2 with other security measures to ensure robust security</li>
+				<li>Implement SHA-2 in a secure and validated manner to avoid vulnerabilities and attacks</li>
+				<li>Use a unique and random salt when hashing passwords to prevent pre-computed hash table attacks</li>
+				<li>Keep up-to-date with new attacks and vulnerabilities related to SHA-2 and take appropriate measures to mitigate risks</li>
+				<li>
+					Compared to other modern hash functions, such as BLAKE2 and SHA-3, SHA-2 is still widely used and considered to be a
+					strong choice for many applications
+				</li>
+			</ul>
+			<br>
+
+			<u><b>How our algorithm identifies this hash</b></u>	<br>
+			<ul>
+				<li>If the program uses hashlib, sha384() identifies its usage</li>
+				<li>Output length of 384 bits</li>
+				<li>
+					Adding a bit sequence to the input data that includes a 1-bit followed by a series of 0-bits,
+					followed by a 64-bit representation of the original length of the input
+				</li>
+				<li>This operation is unique to SHA-384<br><br></li>
+			</ul>
+
+			{% elif "SHA-512" in output %}
+			<p>
+			<p><span style='font-size: 20px; font-family: "Lucida Console", Monaco, monospace;'>SHA-512 hash function identified</span></p>
+			<p><br><strong><u>About SHA-512:</u></strong></p>
+			<ul>
+				<li>Family of cryptographic hash functions that includes SHA-224, SHA-256, SHA-384, and SHA-512</li>
+				<li>
+					Developed by the National Security Agency (NSA) in the US and widely used for digital signature schemes,
+					password storage, and other applications that require secure hashing
+				</li>
+			</ul>
+
+			<u><b>Technical details</b></u>
+			<ul>
+				<li>
+					Similar structure to SHA-1, which includes message padding, message schedule calculation,
+					and a more complex compression function evaluation requiring more rounds of operation
+				</li>
+				<li>Fixed-size output of 224/256/384/512 bits</li>
+				<li>Sustained years of cryptanalysis and attempted attacks, proving its superior security capabilities</li>
+				<li>
+					However, some weaknesses have been identified in the smaller versions of SHA-2, such as SHA-224 and
+					SHA-256, which have been partially addressed by the introduction of SHA-3
+				</li>
+			</ul>
+
+			<u><b>Real-world applications</b></u>
+			<ul>
+				<li>Widely used in blockchain technology, where it is used to hash the contents of each block to ensure data integrity and security</li>
+				<li>Popular choice for secure password storage, where the hash value is stored instead of the plaintext password</li>
+				<li>Also used in digital signature schemes, where it is used to create a unique hash value of a message to be signed</li>
+			</ul>
+
+			<u><b>Recent developments</b></u>
+			<ul>
+				<li>Some researchers have proposed modifications to the SHA-2 compression function, such as the Miyaguchi-Preneel (MP) construction</li>
+				<li>
+					It increases resistance to rotational cryptanalysis attacks, however does not improve the overall security of SHA-2
+					nor does it provide any additional resistance against attacks based on the rebound attack or the boomerang attack
+				</li>
+			</ul>
+
+			<p><strong><span style="color: blue;">Best practices:</span></strong></p>
+			<ul>
+				<li>Combine SHA-2 with other security measures to ensure robust security</li>
+				<li>Implement SHA-2 in a secure and validated manner to avoid vulnerabilities and attacks</li>
+				<li>Use a unique and random salt when hashing passwords to prevent pre-computed hash table attacks</li>
+				<li>Keep up-to-date with new attacks and vulnerabilities related to SHA-2 and take appropriate measures to mitigate risks</li>
+				<li>
+					Compared to other modern hash functions, such as BLAKE2 and SHA-3, SHA-2 is still widely used and considered to be a
+					strong choice for many applications
+				</li>
+			</ul>
+
+			<u><b>How our algorithm identifies this hash</b></u>
+			<ul>
+				<li>If the program uses hashlib, sha512() identifies its usage</li>
+				<li>Output length of 512 bits</li>
+				<li>
+					Adding a bit sequence to the input data that includes a 1-bit followed by a series of 0-bits,
+					followed by a 64-bit representation of the original length of the input data. This operation is unique to SHA-512
+				</li>
+			</ul>
+
+
+			{% elif "Blowfish" in output %}
+			<p>
+				<ul>
+					<li>
+						Blowfish hash function identified.
+					</li>
+					<li>
+						<b><u>Blowfish</u></b>
+						<ul>
+							<li>
+								Extremely secure algorithm operating as a 64-bit block cipher with key sizes ranging from 32 bits to 448 bits, one of the most widely used encryption algorithms worldwide.
+							</li>
+							<li>
+								Implemented in a variety of programming languages, including C, C++, Java, Python, with open-source implementations easily accessible; simplifying the integration of Blowfish into applications.
+							</li>
+						</ul>
+					</li>
+					<li>
+						<p><strong><span style="color: red; font-size: 16px;">Vulnerabilities:</span></strong></p>
+						<ul>
+							<li>
+								Smaller than some modern algorithms, with a max key size of 448 bits, it has limitations in terms of length complexity; however, it still remains a viable option for strong security.
+							</li>
+							<li>
+								Certain key values may produce weak/predictable output.
+							</li>
+							<li>
+								Improper implementation can lead to exposures like side-channel attacks or buffer overflows.
+							</li>
+						</ul>
+					</li>
+					<li>
+						<p><strong><span style="color: blue;">Best practices:</span></strong></p>
+						<ul>
+							<li>
+								While speed is a crucial factor in computing systems, it is recommended to use longer key sizes, 256 bits at the very least.
+							</li>
+							<li>
+								Maintain robust key management practices to ensure the secure generation, storage, and distribution of encryption keys.
+							</li>
+							<li>
+								Stick to well-vetted and trusted cryptographic libraries or modules and be wary when codes are developed using AI as recent studies showed that insecure codes are given occasionally.
+							</li>
+							<li>
+								Strongly recommended to use cryptographically secure random number generator (CSPRNG) to generate any random numbers or nonce values used in the encryption process.
+							</li>
+							<li>
+								If your operation involves key exchange, Diffie-Hellman or Elliptic Curve Diffie-Hellman are highly regarded for their complex and secure key establishment.
+							</li>
+							<li>
+								No successful attacks publicly demonstrated to date, however, encouraged to monitor emerging developments that may break Blowfish in the future.
+							</li>
+						</ul>
+					</li>
+					<li>
+						<b><u>How this algorithm can be detected</u></b>
+						<ul>
+							<li>
+								Input data is divided into 64-bit blocks.
+							</li>
+							<li>
+								Key length varies from 32-bit to 448-bit.
+							</li>
+							<li>
+								Filtering key expansion operations or patterns, Blowfish uses them to generate a series of subkeys based on the original key.
+							</li>
+							<li>
+								Blowfish uses 16 rounds of processing, with each combining substitution and permutation operations; specific S-boxes/P-boxes can help in its detection.
+							</li>
+							<li>
+								Based on a Feistel network structure, look for characteristic data splitting and mixing operations inherent to Feistel networks.
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</p>
+
+			{% elif "Whirlpool" in output %}
+			<p>
+			<p><span style='font-size: 20px; font-family: "Lucida Console", Monaco, monospace;'>Whirlpool hash function identified</span></p>
+			<ul>
+				<li>
+					<b><u>Whirlpool</u></b>
+					<ul>
+						<li>
+							A block cipher hash producing a 512-bit output, uses substitution-permutation network (SPN) construction, which is a popular approach to block ciphers and hash functions.
+						</li>
+						<li>
+							Runs on Rijndael key schedule & non-linear S-box, which are mechanisms found in Advanced Encryption Standard (AES) and is resistant to both linear and differential cryptanalysis.
+						</li>
+					</ul>
+				</li>
+				<li>
+					<p><strong><span style="color: red; font-size: 16px;">Vulnerabilities:</span></strong></p>
+					<ul>
+						<li>
+							Slow performance & computations, may want to look for alternatives if speed/scalability is an important factor.
+						</li>
+						<li>
+							Research has shown its weakness against key-related attacks, attacker can exploit the key schedule to derive information.
+						</li>
+						<li>
+							While no practical collisions have been found for Whirlpool to date, this is still a potential concern.
+						</li>
+						<li>
+							Lack of standardization and formal analysis of Whirlpool, makes it difficult to evaluate and verify its security properties.
+						</li>
+					</ul>
+				</li>
+				<li>
+					<p><strong><span style="color: blue;">Best practices:</span></strong></p>
+					<ul>
+						<li>
+							Verify that the implementation is secure and updated. This can be achieved from code review/analysis.
+						</li>
+						<li>
+							If the smart contract uses Whirlpool for password storage, ensure it is salted and properly hashed before storing.
+						</li>
+						<li>
+							In the context of data integrity/message authentication, ensure the encryption key is securely stored. A key derivation function like PBKDF2 or a secure random number generator can be used to generate the key.
+						</li>
+						<li>
+							Consider the potential impact on gas fees and performance in the smart contract. If performance/speed/scalability is prioritized, consider SHA-2/BLAKE2.
+						</li>
+						<li>
+							Aligning with the principle of defense in depth, it is recommended to layer multiple hashes. You can consider implementing different hashes for different segments in your smart contracts.
+						</li>
+					</ul>
+				</li>
+			</ul>
+		
+			{% elif "Snefru" in output %}
+			<p><span style='font-size: 20px; font-family: "Lucida Console", Monaco, monospace;'>Snefru hash function identified</span></p>
+
+				<u><b>Snefru</b></u>	<br>
+				-	Introduced in 1990 by Ralph Merkle and Ronald Rivest, produces either a 256/512-bit hash value<br>
+				-	It can be found in some older cryptographic systems and legacy code or applications<br><br>
+
+			<p><strong><span style="color: red; font-size: 16px;">Vulnerabilities:</span></strong></p>
+				-	Differential cryptanalysis: Exploiting differences in the input message to find collisions,
+				has a time complexity of 2^(n/2), where n is the number of bits in the hash output. This means
+				that the attack becomes exponentially easier as the hash output size increases<br>
+
+				-	A modified version, revised Snefru was proposed to address the differential cryptanalysis
+				vulnerability. Rhash uses a modified round function that is resistant to the attack<br>
+
+				-	Despite its resistance to the critical flaw, it did not gain widespread adoption and is
+				not a preferred option for modern cryptographic systems<br><br>
+
+				<u><b>How our algorithm identifies this hash</b></u>	<br>
+				-	Goes through multiple rounds of computation to produce hash value, 8 for 256-bit and 16 for 512-bit<br>
+				-	Rounds involve substitution and bitwise XOR operations between 2 intermediate hash values<br>
+				-	At each round of computation, a tweak value is inserted to the input message to modify the hash computation, similar to password salting<br>
+				-	Outputs a block size of 256/512 bits<br><br>
+
+				<u><b>Recommendation</b></u>	<br>
+				While the revised Snefru has proven its resistance to differential cryptanalysis,
+				it was shown to be defenceless against birthday and slide attacks hence failed to gain traction
+				amongst modern cryptographic systems. Highly recommended to avoid in real-world applications and only for educational/research purposes<br><br>
+		
+			{% else %}
+			<p>
+				Hash function not identified. Please try again with a valid hash.
+
+
+
+			</p>
+			{% endif %}
+			{% endif %}
+			{{ output.split('\n')[1]|safe }}
+		</div>
+	</main>
+</body>
+</html>
